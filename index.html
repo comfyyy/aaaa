@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <style>
+    body, html {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+      font-family: "Arial Black", Gadget, sans-serif;
+    }
+
+    .bg {
+      /* The image used */
+
+      /* Full height */
+      height: 100%;
+      width: 100%;
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      z-index: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .wrapper {
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+    }
+    .header {
+      display: block;
+      height: 100px;
+      width: 100%;
+      background: #F6FEFF;
+      opacity: 0.4;
+      position: relative;
+    }
+    .content:hover {
+      font-size: 12px;
+    }
+    .content {
+      position: absolute;
+      z-index: 2;
+      padding: 2.5px 10%;
+      transition: 0.5s;
+    }
+    .bottom {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 25px;
+      background: white;
+      opacity: 0.3;
+    }
+    .bottom-main {
+      position: absolute;
+      bottom: 0;
+      z-index: 3;
+      padding: 5px 10px;
+    }
+    .timephase-area {
+      padding-left: 5px;
+    }
+    .timeLoaded {
+      margin-left: 5px;
+    }
+    #name {
+      transition: 0.5s;
+    }
+    #name:hover {
+      font-size: 15px;
+      font-weight: 600;
+    }
+  </style>
+  <title></title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <div class="content">
+        <p>
+          Hi there! Enjoying the view?
+        </br>
+        Anyways, I am <b id="name">Javes Agan Bastatas</b>. Im a filipino developer.
+      </p>
+    </div>
+    <div class="header">
+    </div>
+  </div>
+  <div class="bottom-main">
+    <span class="time-area"></span>
+    <span class="timephase-area"></span>
+    <span class="timeLoaded"></span>
+  </div>
+  <div class="bottom">
+  </div>
+</div>
+<div class="bg"></div>
+<script>
+  var loadTime;
+  loadTime = performance.now();
+  function getTimePhase() {
+    var hr = (new Date()).getHours(),
+    min = (new Date()).getMinutes(),
+    result;
+
+    if (hr >= 0 && hr < 6) {
+      result = 'dawn';
+    } else if (hr === 6) {
+      result = 'sunrise';
+    } else if (hr >= 6 && hr < 12) {
+      result = 'day';
+    } else if (hr === 12) {
+      result = 'noon';
+    } else if (hr < 18 && hr > 12) {
+      result = 'afternoon';
+    } else if (hr === 17 && min >= 30) {
+      result = 'sunset'
+    } else if (hr === 18) {
+      result = 'dusk';
+    } else if (hr < 24 && hr > 18) {
+      result = 'night';
+    } else {
+      result = 'undetermined';
+    }
+
+    return result;
+  }
+
+  var timephase = getTimePhase();
+  var bgDiv = document.getElementsByClassName('bg')[0];
+  var nightImage = 'https://cutewallpaper.org/21/aesthetic-pixel-art/aesthetic-pixel-art-tumblr-image-6034661-on-Favim.com.png';
+  var dawnImage = 'https://cdnb.artstation.com/p/assets/images/images/029/443/031/medium/jesus-campos-jimenez-nerkin-screenshot-artstation2-grande.jpg';
+  var dayImage = 'https://images4.alphacoders.com/966/966314.jpg';
+  var afternoonImage = 'https://i.kym-cdn.com/photos/images/newsfeed/000/751/811/09b.gif';
+  var sunriseImage = 'https://images3.alphacoders.com/921/921277.jpg';
+  var sunsetImage = 'https://images7.alphacoders.com/943/943385.png';
+  var duskImage = 'https://images6.alphacoders.com/715/715677.png';
+  var noonImage = 'noon.jpg';
+  if (timephase == 'dawn') {
+    bgDiv.style.background = 'url('+dawnImage+')';
+  } else if (timephase == 'night') {
+    bgDiv.style.background = "url("+nightImage+")";
+  } else if (timephase == 'day') {
+    bgDiv.style.background = 'url('+ dayImage + ')';
+  } else if (timephase == 'noon') {
+    bgDiv.style.background = 'url('+noonImage+')';
+  } else if (timephase == 'afternoon') {
+    bgDiv.style.background = 'url('+afternoonImage+')';
+  } else if (timephase == 'sunset') {
+    bgDiv.style.background = 'url('+sunsetImage+')';
+  } else if (timephase == 'dusk') {
+    bgDiv.style.background = 'url('+duskImage+')';
+    document.body.style.color = 'black';
+  } else if (timephase == 'night') {
+    document.body.style.color = 'white';
+    bgDiv.style.background = 'url('+nightImage+')';
+  } else if (timephase == 'dawn') {
+    bgDiv.style.background = 'url('+dawnImage+')';
+  } else if (timephase == 'sunrise') {
+    bgDiv.style.background = 'url('+ sunriseImage+')';
+  }
+  bgDiv.style.backgroundRepeat = 'no-repeat';
+  bgDiv.style.backgroundPosition = 'center';
+  bgDiv.style.backgroundSize = 'cover';
+
+  var timearea = document.getElementsByClassName('time-area')[0];
+  var timephasearea = document.getElementsByClassName('timephase-area')[0];
+  var timephaseSymbol = (timephase == ('dawn' || 'day' || 'sunrise' || 'noon' || 'afternoon')) ? ('🌝'): ('🌚');
+  timearea.innerText = (new Date()).getHours() + ':' + (new Date()).getMinutes();
+  timephasearea.innerText = timephase.charAt(0).toUpperCase() + timephase.slice(1) + timephaseSymbol;
+  loadTime = ((performance.now() -loadTime)/1000).toFixed(3);
+  var timeLoaded = document.getElementsByClassName('timeLoaded')[0];
+  timeLoaded.innerText = 'Loaded: ' + loadTime + ' seconds';
+</script>
+</body>
+</html>
